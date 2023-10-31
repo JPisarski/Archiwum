@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1648648819 source:c:\users\admin\onedrive\pulpit\programy\4.2.5\main.c
+	<stdio.h>
+	<stdlib.h>
+
