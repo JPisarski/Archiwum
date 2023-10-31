@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1645612913 source:d:\jpisarski\1.2.6\main.c
+	<stdio.h>
+	<stdlib.h>
+

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1645614385 source:d:\jpisarski\1.2.9\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
