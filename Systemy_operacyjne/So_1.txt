@@ -1,0 +1,50 @@
+1. Podstawowe polecenia
+
+passwd - zmiana hasła użytkownika
+man[polecenie] - wyświetla stronę manuala dla polecenia
+who - pokazuje, kto jest zalogowany
+whoami -  wypisuje   nazwę   użytkownika
+ls - wypisuje zawartość katalogu
+pwd - wypisuje nazwę bieżącego katalogu roboczego
+tree - służy do wyświetlania zawartości podanego katalogu i wszystkich jego podkatalogów w formie drzewka
+ls -l - wyświetla dokładne informacje o plikach (uprawnienia, liczbę łączy, nazwę właściciela, nazwę grupy, rozmiar, datę ostatniej modyfikacji, nazwę pliku)
+ls / - wypisuje wszytkie pliki w katalogu głównym
+cd - zmienia aktualny katalog
+mkdir - tworzy katalog
+rmdir - usuwa pusty katalog 
+rm - kasuje plik
+exit - komenda służąca do zakończenia procesu powłoki
+
+2. Oznaczenia katalogów
+
+katalog bieżący - .
+katalog nadrzędny -  ..
+katalog główny - /
+katalog domowy - ~
+
+3. Symbole
+
+- - korzystanie z argumentów polecenia lub stdin/stdout
+d - pokazanie samych katalogów zamiast ich zawartości (--directory) 
+c - sortowanie wg ctime, najnowsze pliki na początku
+b - wypisanie znaków niegraficznych ósemkowo ze znakami modyfikacji w stylu języka C
+l - użycie długiego formatu wyjściowego
+
+4. Zadanie
+
+mkdir Dane
+cd Dane
+cd ~ lub cd..
+ls /
+
+
+
+
+
+
+
+
+
+
+
+

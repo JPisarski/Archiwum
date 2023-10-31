@@ -1,0 +1,141 @@
+1. 
+
+mkdir Notatki
+mkdir Przepisy
+cd Notatki
+nano Zapiski.txt
+mkdir Kopie
+
+cat Zapiski.txt
+Dziś jest piątek.
+Katalog /dev zawiera pliki związane z obsługą urządzeń.
+
+2.
+
+cd ~
+ln -s ~/Notatki/Zapiski.txt ~/Przepisy/AdZapisek
+
+3.
+
+chmod 744 Notatki
+chmod 764 ~/Notatki/Zapiski.txt
+
+4.
+ 
+umask 0027
+
+5.
+
+nano Dane.txt
+mkdir Proba1
+ls -l
+
+-rw-r----- 1 s164419 domain users    0 03-10 11:57 Dane.txt
+drwxr-x--- 2 s164419 domain users 4096 03-10 11:57 Proba1
+
+6. 
+
+cd Notatki
+ls -i
+
+12845230 Kopie  12583470 Zapiski.txt
+
+7.
+
+System operacyjny musi:
+wyszukać katalog Dane,
+odczytać informacje o nim,
+sprawdzić prawa dostępu,
+jeśli one pozwalają, to przejść do tego katalogu,
+wyszukać plik dane1 w katalogu Dane,
+odczytać informacje o nim,
+sprawdzić prawa dostępu,
+jeśli one pozwalają, to otworzyć plik w odpowiednim trybie - do odczytu,
+odczytać potrzebne dane, 
+zamknąć plik.
+
+
+zadania z lseek.c
+
+1.
+
+ls -l 
+-rw-r----- 1 s164419 domain users     40 03-10 12:36  dane.txt
+cat dane.txt
+A oto o kocie Ali.
+I o innych kotach.
+
+2.
+
+nano plik_lseek.c
+
+dopisujemy:
+plik1=open("dane.txt",O_RDWR,0);
+lseek(plik1,0L,2);
+ilosc=write(plik1,"To zapis o psie Ali\n",20);
+printf("Zapisano %d znakow\n",ilosc);
+close(plik1);
+
+gcc plik_lseek.c
+./a.out
+cat dane.txt
+A oto o kocie Ali.
+I o innych kotach.
+To zapis o psie Ali
+
+3.
+
+nano plik_lseek.c
+
+zamieniamy na:
+plik1=open("dane.txt",O_RDWR,0);
+lseek(plik1,0L,0);
+ilosc=write(plik1,"NOWA TREŚĆ\n",20);
+printf("Zapisano %d znakow\n",ilosc);
+close(plik1);
+
+gcc plik_lseek.c
+./a.out
+cat dane.txt
+NOWA TREŚĆ
+8I o innych kotach.
+
+Nowy tekst zastąpił pierwsze słowa zawartości pliku dane.txt
+
+4. 
+
+nano plik_lseek.c
+
+dopisujemy:
+ilosc=write(plik1,"DRUGI",20);
+
+gcc plik_lseek.c
+./a.out
+cat dane.txt
+NOWA TREŚĆ
+DRUGI
+DRUGI
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

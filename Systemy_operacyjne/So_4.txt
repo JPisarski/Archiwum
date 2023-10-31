@@ -1,0 +1,89 @@
+
+
+1.
+
+a)
+
+echo Świeci Słońce > dane22
+ls -l >> dane22
+pwd >> dane22
+
+b)
+
+tree > drzewo
+cat dane22 drzewo > wynik
+
+c) 
+
+cat < dane22 > razem
+cat < drzewo >> razem
+cat < wynik >> razem
+
+d) 
+
+who | wc -l
+
+e)
+
+ls | wc -w
+
+2.
+
+a)
+
+find ~ -maxdepth 1 -type f -empty
+
+b) 
+
+find /dev -type c | wc -l
+
+c) 
+
+find ~ -type d -perm -u=rx
+
+d)
+
+find . -type f -name "[a-f,w]*" -exec cat {} \;
+
+e)
+
+find ~ -maxdepth 3 -not -empty -cmin -30
+
+f)
+
+find . -type f -amin -30
+find . -type f -cmin -30
+find . -type f -mmin -30
+
+3.
+
+a)
+
+find /dev -type b | wc -l
+find . -name "[a,c-e,w]*" -exec cat {} \; | wc -l
+find / -maxdepth 3 -mindepth 2 -type d | wc -l
+
+Zadania z MC 
+
+1.
+
+mc
+F7 DANE22
+
+2.
+
+Insert
+F5 
+
+3.
+
+Tab
+F9 
+Prawy
+Drzewo
+
+4.
+
+F8
+
+

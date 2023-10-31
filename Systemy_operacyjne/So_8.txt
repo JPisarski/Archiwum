@@ -1,0 +1,393 @@
+1.
+
+s164419@orfi:~$ zm1=10
+s164419@orfi:~$ x=zm1
+s164419@orfi:~$ y='$'$x
+s164419@orfi:~$ echo $y
+$zm1
+
+2.
+
+s164419@orfi:~$ zm1=10
+s164419@orfi:~$ x=zm1
+s164419@orfi:~$ eval y='$'$x
+s164419@orfi:~$ echo $y
+10
+
+1.
+
+s164419@orfi:~$ x="/home/jan23/Dane/Projekt_22/Dane/Pliki"
+
+s164419@orfi:~$ a=${x#*Dane}
+s164419@orfi:~$ echo $a
+/Projekt_22/Dane/Pliki
+
+s164419@orfi:~$ a=${x##*Dane}
+s164419@orfi:~$ echo $a
+/Pliki
+
+s164419@orfi:~$ a=${x%Dane*}
+s164419@orfi:~$ echo $a
+/home/jan23/Dane/Projekt_22/
+
+s164419@orfi:~$ a=${x%%Dane*}
+s164419@orfi:~$ echo $a
+/home/jan23/
+
+s164419@orfi:~$ echo ${#x}
+38
+
+s164419@orfi:~$ b=${b:-$HOME}
+s164419@orfi:~$ echo $b
+/home/domena/s164419
+
+2.
+
+s164419@orfi:~$ SCIEZKA="/Kopia/Kopia/Kopia/Kopia/Pliki"
+s164419@orfi:~$ ZAPAS=${SCIEZKA#/Kopia/Kopia}
+s164419@orfi:~$ echo $ZAPAS
+/Kopia/Kopia/Pliki
+
+3.
+
+s164419@orfi:~$ nano skrypt
+
+#!/bin/bash
+fun(){
+local zm1=11
+bb1=$[$bb1+$zm1]
+}
+zm1=33
+bb1=7
+echo "SKRYPT GŁÓWNY"
+echo $bb1
+fun
+echo $bb1
+echo "KONIEC"
+exit 0
+
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt
+SKRYPT GŁÓWNY
+7
+18
+KONIEC
+s164419@orfi:~$
+
+
+s164419@orfi:~$ nano skrypt
+
+#!/bin/bash
+fun(){
+echo "$*"
+}
+echo "SKRYPT GŁÓWNY"
+fun  "$2" "$3" 122 34
+echo "KONIEC"
+exit 0
+
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt AAA BBB CCC
+SKRYPT GŁÓWNY
+BBB CCC 122 34
+KONIEC
+
+s164419@orfi:~$ nano skrypt
+
+#!/bin/bash
+fun(){
+suma=$[$1+$2]
+echo "suma=" $suma
+}
+echo "SKRYPT GŁÓWNY"
+fun $1 $2
+echo "KONIEC"
+exit 0
+
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt 5 5
+SKRYPT GŁÓWNY
+suma= 10
+KONIEC
+
+4.
+
+s164419@orfi:~$ nano skrypt
+
+#!/bin/bash -x
+echo "SKRYPT GŁÓWNY"
+echo $PWD
+a=$PWD
+echo "a=" $a
+b=$(find ~ -type f | wc -l)
+echo "b=" $b
+if [ $1 -eq 1 ]; then
+tree ~ > Dane
+elif [ $1 -eq 2 ]; then
+find ~ -maxdepth 3 -type d | wc -l
+elif [ $1 -eq 3 ]; then
+ls ~
+fi
+echo "KONIEC"
+exit 0
+
+164419@orfi:~$ chmod 777 skrypt
+
+s164419@orfi:~$ ./skrypt 3
++ echo 'SKRYPT GŁÓWNY'
+SKRYPT GŁÓWNY
++ echo /home/domena/s164419
+/home/domena/s164419
++ a=/home/domena/s164419
++ echo a= /home/domena/s164419
+a= /home/domena/s164419
+++ find /home/domena/s164419 -type f
+++ wc -l
++ b=12
++ echo b= 12
+b= 12
++ '[' 3 -eq 1 ']'
++ '[' 3 -eq 2 ']'
++ '[' 3 -eq 3 ']'
++ ls /home/domena/s164419
+Dane  silnia  skrypt
++ echo KONIEC
+KONIEC
++ exit 0
+
+NANORC
+s164419@orfi:~$ nano .nanorc
+set linenumbers
+include "/usr/share/nano/sh.nanorc"
+include "/usr/share/nano/man.nanorc"
+include "/usr/share/nano/c.nanorc"
+
+Zmienne Specjalne
+
+s164419@orfi:~$ nano skrypt805
+s164419@orfi:~$ chmod 777 skrypt805
+s164419@orfi:~$ ./skrypt805 Ala kot pies 123 887 45abc danie
+skrypt805
+./skrypt805
+Ala kot pies 123 887 45abc danie
+Ala kot 123
+7
+1282207
+0
+parametry: Ala kot pies 123 887 45abc danie
+koniec
+
+s164419@orfi:~$ echo $?
+111
+
+s164419@orfi:~$ nano skrypt123
+s164419@orfi:~$ chmod 777 skrypt123
+s164419@orfi:~$ a=12
+s164419@orfi:~$ b="Ala i kot"
+s164419@orfi:~$ export b
+s164419@orfi:~$ ./skrypt123
+zmienna powłoki uruchamiającej a=
+zmienna środowiskowa b= Ala i kot
+s164419@orfi:~$ nano skrypt123
+s164419@orfi:~$ ./skrypt123
+zmienna powłoki uruchamiającej a=
+zmienna środowiskowa b= Ala i kot
+zmienna a=
+zmienna b= Ala i kot
+
+SKRYPTY
+
+1. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 for x in $@;
+ 4 do
+ 5 if [ "$x" = "a1" ]
+ 6 then find ~ -type f | wc -l
+ 7 fi
+ 8 if [ "$x" = "las" ];
+ 9 then echo "występuje las"
+10 fi
+11 done
+12 echo "KONIEC SKRYPTU"
+13 exit 0
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt cos las a1 123
+SKRYPT GŁÓWNY
+występuje las
+13
+KONIEC SKRYPTU
+
+2. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 if [ $# -lt 3 ];
+ 4 then echo "Za mało"
+ 5 exit 11;
+ 6 elif [ $# -eq 3 ];
+ 7 then ls ~ > $2
+ 8 exit 55;
+ 9 else
+10 find . -maxdepth 3 -type d | wc -l
+11 exit 22;
+12 fi
+13 echo "KONIEC SKRYPTU"
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt 1 2
+SKRYPT GŁÓWNY
+Za mało
+
+3. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 read a
+ 4 echo "a="$a
+ 5 if [ -e "./$a" ]; then
+ 6 find . -size +150
+ 7 fi
+ 8 echo "KONIEC SKRYPTU"
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt 2
+SKRYPT GŁÓWNY
+2
+a=2
+KONIEC SKRYPTU
+
+4. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 ile=-1
+ 4 for x in $@;
+ 5 do
+ 6 if [ $x -eq $1 ]; then
+ 7 ile=$[$ile+1]
+ 8 fi
+ 9 done
+10 echo $ile
+11 echo "KONIEC SKRYPTU"
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt 1 1 1 1 1 1
+SKRYPT GŁÓWNY
+5
+KONIEC SKRYPTU
+
+5. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 read a
+ 4 if  [ $a = $0 ]; then
+ 5 echo "TAK"
+ 6 else
+ 7 echo "NIE"
+ 8 fi
+ 9 echo "KONIEC SKRYPTU"
+10 exit 0
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt
+SKRYPT GŁÓWNY
+./skrypt
+TAK
+KONIEC SKRYPTU
+
+6. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 echo "ILOŚĆ PARAMETRÓW" $#
+ 4 if [ $# -gt 3 ]; then
+ 5 echo "PIERWSZY" $1
+ 6 echo "TRZECI" $3
+ 7 if [ $1 -eq $3 ]; then
+ 8 echo "Są równe"
+ 9 else
+10 echo "Nie są równe"
+11 fi
+12 else
+13 echo "Za mało parametrów"
+14 exit 17
+15 fi
+16 exit 0
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt 12 15 12 0 5
+SKRYPT GŁÓWNY
+ILOŚĆ PARAMETRÓW 5
+PIERWSZY 12
+TRZECI 12
+Są równe
+
+7. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 if [ $# -gt 4 ]; then
+ 4 exit 25
+ 5 elif [ $# -eq 1 ] && [ $1 = "drzewo" ]; then
+ 6 tree
+ 7 elif [ $# -eq 1 ] && [ $1 = "zwykle" ]; then
+ 8 find . -type f
+ 9 else
+10 echo $$
+11 exit 123
+12 fi
+13 exit 0
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt 1
+SKRYPT GŁÓWNY
+19493
+
+8. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 echo $HOME
+ 4 echo ZALOGOWANI:
+ 5 who | wc -l
+ 6 exit 0
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt
+SKRYPT GŁÓWNY
+/home/domena/s164419
+ZALOGOWANI:
+1
+
+9. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 if [ $1 = "dwa" ]; then
+ 4 date
+ 5 fi
+ 6 if [ $# -eq 2 ]; then
+ 7 if [ -f ./$2 ]; then
+ 8 echo "Istnieje"
+ 9 else
+10 echo "Nie istnieje"
+11 fi
+12 fi
+13 exit 0
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt dwa 2
+SKRYPT GŁÓWNY
+pią, 5 maj 2023, 18:50:25 CEST
+Istnieje
+
+10. s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 if [ $1 = "dwa" ]; then
+ 4 date
+ 5 fi
+ 6 if [ $# -eq 2 ]; then
+ 7 if [ -f ./$2 ]; then
+ 8 echo "Istnieje"
+ 9 else
+10 echo "Nie istnieje"
+11 fi
+12 fi
+13 if [ $2 = "tworz" ]; then
+14 read a
+15 echo $$ > $a
+16 fi
+17 exit 0
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt dwa tworz
+SKRYPT GŁÓWNY
+pią, 5 maj 2023, 18:57:05 CEST
+Nie istnieje
+abc

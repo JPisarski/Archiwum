@@ -1,0 +1,156 @@
+Zadania powtórkowe
+
+1.
+
+a)
+
+find . -maxdepth 1 -type f | wc -l > NOTATKA
+who >> NOTATKA
+pwd >> NOTATKA
+
+b)
+
+tree > Katalog
+cat NOTATKA Katalog > wynik
+
+c)
+
+cat NOTATKA | wc -l >> wynik
+
+
+2.
+
+a)
+
+find / -maxdepth 3 -type f
+
+b)
+
+find /dev -type b | wc -l
+
+c)
+
+find . -type d -perm -g=rw
+
+d)
+
+find . -type f -name "[d-k,p,t]????*"
+
+e)
+
+find / -maxdepth 2 -type l | wc -l
+
+f)
+
+find ~ -mtime -3
+
+3.
+
+a)
+
+find . -name "[k-p,t,w]*" | wc -l
+
+b)
+
+find ~ -type f -name "[k-p,w]*" | wc -c
+
+c)
+
+find / -maxdepth 3 -mindepth 2 -type d | wc -l
+
+
+Zadania z grepem
+
+Ćwiczenie
+
+s164419@orfi:~$ echo $HOME
+/home/domena/s164419
+s164419@orfi:~$ echo $_
+/home/domena/s164419
+
+1.
+
+nano tekst24.03
+
+2.
+
+a)
+
+grep '^ala' *
+
+b)
+
+grep 'tola i ala$' *
+
+c)
+
+grep 'a\{1,2\}l\{1,2\}[ao]' *
+ 
+d)
+
+grep '.l.\|.ll.\|.lll.' *
+
+e)
+
+grep '^ *al\{1,2\}a' *
+
+f)
+
+grep 'o,' *
+
+g) 
+
+grep '\\' *
+
+h)
+
+grep '4[^\*]' *
+
+3.
+
+nn1=10
+nn2=5
+nn1=$[$nn2+$nn1]
+unset nn2
+
+4.
+
+echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+PATH=$PATH:.
+
+5.
+
+echo $PS1
+\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$
+PS1='\u@\h:\w\d\s\$'
+
+6.
+
+a)
+
+PS1='\u@\h:\w\$\s\t\#'
+
+b)
+
+PS1='\u@\h:\w\$\#'
+
+7. 
+
+PS1='\u@\h:\w\$'
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+

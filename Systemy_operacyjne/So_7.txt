@@ -1,0 +1,156 @@
+tr i cut
+
+
+1.
+
+s164419@orfi:~$ cat /etc/passwd | cut -d":" -f1,3,6
+
+s164419@orfi:~$ cat /etc/passwd | tr -s ":" | cut -d":" -f1,3,5
+
+s164419@orfi:~$ cat /etc/passwd | tr -s ":" | cut -d":" -f1,3,5 | tr ":" " "
+
+2.
+
+s164419@orfi:~$ ls -l | tr -s " " | cut -d " " -f1,6,9
+
+
+
+funkcje
+
+
+1.
+
+s164419@orfi:~$ echo ${a:-plikZERO}
+plikZERO
+
+2.
+
+s164419@orfi:~$ SCIEZKA="/home/jan23/Pliki/projekt1/Pliki/Dane"
+
+3.
+
+s164419@orfi:~$ echo $SCIEZKA
+/home/jan23/Pliki/projekt1/Pliki/Dane
+
+4.
+
+s164419@orfi:~$ a=${a:-plikZERO}
+s164419@orfi:~$ echo ${#a}
+8
+
+s164419@orfi:~$ echo ${SCIEZKA%Pliki*}
+/home/jan23/Pliki/projekt1/
+
+s164419@orfi:~$ echo ${SCIEZKA%%Pliki*}
+/home/jan23/
+
+s164419@orfi:~$ echo ${SCIEZKA#*Pliki}
+/projekt1/Pliki/Dane
+
+s164419@orfi:~$ echo ${SCIEZKA##*Pliki}
+/Dane
+
+2.
+
+s164419@orfi:~$ nano skrypt
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt
+SKRYPT GŁÓWNY
+w GŁÓWNYM k1= 33
+DZIALA FUN1
+w fun1 d22= 555
+ w fun k=1 33
+w GŁÓWNYM d22= 555
+GŁÓWNY - KONIEC
+
+3.
+
+s164419@orfi:~$ nano skrypt
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt aaa bbb DDD KKK
+dziala GŁÓWNY
+Jego parametry: aaa bbb DDD KKK
+dziala fun1
+Parametry funkcji:
+Dane pobrane: bbb DDD
+1-4: Dane, pobrane:, bbb, DDD
+GŁÓWNY - cd
+koniec GŁÓWNEGO
+
+ZADANIA
+
+1.
+
+s164419@orfi:~$ nano skrypt
+
+#!/bin/bash
+fun(){
+local sum=0
+local ilo=1
+for x in $@
+do
+sum=$[$sum+$x]
+ilo=$[$ilo*$x]
+done
+echo "SUMA:"  $sum
+echo "ILOCZYN:" $ilo
+}
+echo "SKRYPT GŁÓWNY"
+echo $*
+fun $@
+echo "KONIEC"
+
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt 1 2 3 4 5
+SKRYPT GŁÓWNY
+1 2 3 4 5
+SUMA: 15
+ILOCZYN: 120
+KONIEC
+
+2.
+
+s164419@orfi:~$ nano skrypt
+
+fun3(){
+echo $1
+}
+echo "SKRYPT GŁÓWNY"
+if [ $1 -eq 1 ]; then
+if [ -d "$2" ]; then
+rmdir "$2"
+else mkdir "$2"
+fi
+elif [ $1 -eq 2 ]; then
+echo $HOME >> $2
+elif [ $1 -eq 3 ]; then
+echo "FUNKCJA 3"
+fun3 $2
+fi
+echo "KONIEC"
+
+s164419@orfi:~$ chmod 777 skrypt
+
+s164419@orfi:~$ ./skrypt 1 katalog
+SKRYPT GŁÓWNY
+KONIEC
+s164419@orfi:~$ ls
+katalog  silnia  skrypt
+
+s164419@orfi:~$ ./skrypt 1 katalog
+SKRYPT GŁÓWNY
+KONIEC
+s164419@orfi:~$ ls
+silnia  skrypt
+
+s164419@orfi:~$ ./skrypt 2 abc
+SKRYPT GŁÓWNY
+KONIEC
+s164419@orfi:~$ cat abc
+/home/domena/s164419
+
+s164419@orfi:~$ ./skrypt 3 abc
+SKRYPT GŁÓWNY
+FUNKCJA 3
+abc
+KONIEC

@@ -1,0 +1,148 @@
+1. ify
+
+s164419@orfi:~$ zmienna1=10
+s164419@orfi:~$ zmienna2=20
+s164419@orfi:~$ if [ $zmienna1 -eq $zmienna2 ]; then echo zmienna1=zmienna2; elif [ $zmienna1 -lt  $zmienna2 ];
+then echo zmienna1 mniejsza od zmniennej2; else echo zmienna1 większa od zmiennej2; fi
+zmienna1 mniejsza od zmniennej2
+
+2.
+
+s164419@orfi:~$ if [ -f ~/dane.txt ]; then echo istnieje plik zwykły; else echo nie istnieje; fi
+istnieje plik zwykły
+
+3.
+
+s164419@orfi:~$ zmienna="costam"
+s164419@orfi:~$ if [ -n "$zmienna" ]; then echo niezerowy; else echo zerowy; fi
+niezerowy
+
+4.
+
+s164419@orfi:~$ if [ "$HOME" = "$PWD" ]; then echo to katalog domowy; else echo to nie jest katalog domowy; fi
+to katalog domowy
+
+3. casy
+
+a) 
+
+s164419@orfi:~$ tekst="a b c"
+s164419@orfi:~$ case "$tekst" in
+> "lista") ls;;
+> "drzewo" | "las") echo Wybrano opcję nr 2; tree;;
+> "gdzie ja jestem") pwd;;
+> *) echo Inna opcja; whoami;;
+> esac
+Inna opcja
+s164419
+
+b)
+
+s164419@orfi:~$ tekst="lista"
+s164419@orfi:~$ case "$tekst" in "lista") ls;; "drzewo" | "las") echo Wybrano opcję nr 2; tree;; "gdzie ja jestem") pwd;; *) echo Inna opcja; whoami;; esac
+dane.txt  tekst24.03
+
+s164419@orfi:~$ tekst="drzewo"
+s164419@orfi:~$ case "$tekst" in "lista") ls;; "drzewo" | "las") echo Wybrano opcję nr 2; tree;; "gdzie ja jestem") pwd;; *) echo Inna opcja; whoami;; esac
+Wybrano opcję nr 2
+.
+├── dane.txt
+└── tekst24.03
+
+0 directories, 2 files
+
+s164419@orfi:~$ case "$tekst" in "lista") ls;; "drzewo" | "las") echo Wybrano opcję nr 2; tree;; "gdzie ja jestem") pwd;; *) echo Inna opcja; whoami;; esac
+/home/domena/s164419
+
+s164419@orfi:~$ tekst="a b c"
+s164419@orfi:~$ case "$tekst" in "lista") ls;; "drzewo" | "las") echo Wybrano opcję nr 2; tree;; "gdzie ja jestem") pwd;; *) echo Inna opcja; whoami;; esac
+Inna opcja
+
+
+1. pętle
+
+s164419@orfi:~$ x=10
+s164419@orfi:~$ while [ $x -le 35 ]
+> do
+> echo $x
+> x=$[$x+1]
+> done
+s164419@orfi:~$ while [ $x -ge 10 ]; do echo $x; x=$[$x-1]; done
+
+
+s164419@orfi:~$ x=10
+s164419@orfi:~$ until [ $x -gt 35 ]
+> do
+> echo $x
+> x=$[$x+1]
+> done
+until [ $x -lt 10 ]; do echo $x; x=$[$x-1]; done
+
+2.
+
+s164419@orfi:~$ ileKAT=0
+s164419@orfi:~$ for x in *; do if [ -d "$x" ]; then ileKAT=$[$ileKAT+1]; echo "$x"; fi; done
+s164419@orfi:~$ echo $ileKAT
+
+3.
+
+a)
+
+s164419@orfi:~$ ilePL=0
+s164419@orfi:~$ for x in *; do if [ "$x" = "a"* ]; then ilePL=$[$ilePL+1]; fi; done
+s164419@orfi:~$ echo $ilePL
+
+b)
+
+s164419@orfi:~$ ilePL=0
+s164419@orfi:~$ for x in $(ls ~); do if [ "$x" = ??"a"??? ]; then ilePL=$[$ilePL+1]; fi; done
+s164419@orfi:~$ echo $ilePL
+
+4.
+
+s164419@orfi:~$ for x in *; do if [ -x "$x" ]; then echo $x; fi; done
+
+5.
+
+a)
+
+s164419@orfi:~$ ilePL=0
+s164419@orfi:~$ for x in $(ls ~); do if [ -f "$x" ]; then ilePL=$[$ilePL+1]; fi; done
+s164419@orfi:~$ echo $ilePL
+
+b)
+
+s164419@orfi:~$ ileKAT=0
+s164419@orfi:~$ for x in $(ls ~); do if [ -d "$x" ]; then ileKAT=$[$ileKAT+1]; fi; done
+s164419@orfi:~$ echo $ileKAT
+
+c)
+
+s164419@orfi:~$ ileNZ=0
+s164419@orfi:~$ for x in $(ls ~); do if [ ! -s "$x" ]; then ileNZ=$[$ileNZ+1]; fi; done
+s164419@orfi:~$ echo $ileNZ
+
+6.
+
+s164419@orfi:~$ for x in "$(who | tr -s " ")"; do echo "$x" | cut -d " " -f 1,5; done
+root (213.184.8.101)
+s164419 (31.60.232.200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

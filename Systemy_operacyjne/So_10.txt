@@ -1,0 +1,101 @@
+9.
+
+s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 if [ $# -lt 2 ]; then
+ 4 echo "Za mało argumentów"
+ 5 exit 11
+ 6 elif [ $# -eq 2 ]; then
+ 7 mkdir $2
+ 8 elif [ $# -eq 3 ] && [ $1 = "szukaj" ]; then
+ 9 find ~ -type f | wc -l
+10 fi
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt szukaj 1 abc
+SKRYPT GŁÓWNY
+12
+
+10.
+
+s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 cat /etc/group | wc -l
+ 4 read nazwa
+ 5 cat /etc/group | cut -d":" -f1 > $nazwa
+ 6 grep "user1" $nazwa  | wc -l
+ 7 echo "KONIEC"
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt
+SKRYPT GŁÓWNY
+145
+abc
+11
+KONIEC
+
+11.
+
+s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 bplik=0
+ 4 kmpplik=0
+ 5 dplik=0
+ 6 pplik=0
+ 7 read nazwa
+ 8 bplik=$(find $nazwa -name "b*" | wc -l)
+ 9 kmpplik=$(find $nazwa -name "[k,m,p]*" | wc -l)
+10 dplik=$(find $nazwa -name "d?????" | wc -l)
+11 pplik=$(find $nazwa -name "?s???*" -and ! -name "[b,k,m,p,d]*" | wc -l)
+12 echo "bplik" $bplik
+13 echo "kmpplik" $kmpplik
+14 echo "dplik" $dplik
+15 echo "pplik" $pplik
+16 echo "KONIEC"
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt
+SKRYPT GŁÓWNY
+./spr
+bplik 1
+kmpplik 3
+dplik 1
+pplik 1
+KONIEC
+
+12.
+
+s164419@orfi:~$ nano skrypt
+ 1 #!/bin/bash
+ 2 echo "SKRYPT GŁÓWNY"
+ 3 if [ "$1" = "$0" ]; then
+ 4 ls -l ~ | grep '.rwx......'
+ 5 ls -l ~ | grep '.rwx......' > $2
+ 6 else
+ 7 ps -f --ppid 1
+ 8 x=$(ps -f --ppid 1 | wc -l)
+ 9 x=$[$x-1]
+10 echo $x
+11 fi
+12 echo "KONIEC"
+s164419@orfi:~$ chmod 777 skrypt
+s164419@orfi:~$ ./skrypt ./skrypt abc
+SKRYPT GŁÓWNY
+-rwxrwxrwx 1 s164419 domain users  187 04-25 13:32 silnia
+-rwxrwxrwx 1 s164419 domain users  209 05-14 21:32 skrypt
+KONIEC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+1.
+
+mkdir st_2023
+cd st_2023
+mkdir Dane
+mkdir Teksty
+cd Teksty
+mkdir Listy
+mkdir Podania
+cd ..
+mkdir Programy
+cd Programy
+mkdir C
+mkdir Shell
+cd Shell
+mkdir Skrypty
+
+2.
+ 
+a)
+
+cd ~/st_2023/Teksty
+nano Zestawienie.txt
+cp Zestawienie.txt ../Programy/Shell/Skrypty/spis23.txt
+
+ścieżka względna
+
+b)
+
+cd ../Programy/Shell/Skrypty
+cat spis23.txt
+
+3.
+
+cd ~
+ln -s ./st_2023/Dane ./st_2023/Teksty/Podania/Odsylacz_Dane
+
+4.
+
+cd ~
+ln -s ./st_2023/Programy/Shell/Skrypty ./st_2023/Teksty/Podania/Skrypty_Odsylacz
+
+5.
+
+cd ~
+ln -s ./st_2023/Teksty/Zestawienie.txt ./st_2023/Teksty/Listy/DoZestawienia
+
+6. 
+
+cd ~
+cd ./st_2023
+rm -r Programy
+
+7.
+
+a)
+
+chmod 700 ./st_2023/Teksty/Listy
+
+b)
+
+chmod 644 ./st_2023/Teksty/Zestawienie.txt
+
+c)
+
+chmod 741 ./st_2023/Teksty/Zestawienie.txt
+
+8.
+
+cd ./st_2023/Dane
+nano Zapis.txt
+ls -l  -> można odczytać informacje o pliku
+
+-rw-r--r-- 1 s164419 domain users 4 03-03 16:06 Zapis.txt 
+  
+cat Zapis.txt  -> można odczytać zawartość pliku
+chmod 700 Zapis.txt  -> można zmienić prawa dostępu
+cp Zapis.txt Zapis2.txt  -> można kopiować
+rm Zapis2.txt  -> można usuwać
+mv Zapis.txt Z.txt  -> można przenosić (zmieniać nazwę)
+nano Z.txt  -> można edytować
+brak prawa uruchamiania/wykonywania plików specjalnych
+
+9. 
+
+cd ..
+ls -l
+
+drwxr-xr-x 2 s164419 domain users 4096 03-03 16:36 Dane
+
+a)
+
+mkdir Dane2
+rmdir Dane2 -> można usunąć 
+mkdir Dane2
+mv Dane2 Dane5 -> można zmienić nazwę
+chmod 777 Dane5 -> można zmienić prawa dostępu
+ls -l -> można odczytać dane o katalogu
+
+b)
+
+cd Dane
+ls -l -> można odczytać zawartość katalogu
+mkdir Dane555 -> można utworzyć podkatalog
+cp Z.txt ./ZZZ.txt -> można skopiować plik do katalogu
+rm ZZZ.txt -> można usunąć plik z katalogu
+cp Z.txt ./ZZZ.txt -> można skopiować plik z katalogu
+
+
+10.
+
+cd ~
+umask 117
+
+
+
+
