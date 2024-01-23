@@ -1,0 +1,1 @@
+G.point(lambda i: i + 100); R.point(lambda i: i > 100 and 255)

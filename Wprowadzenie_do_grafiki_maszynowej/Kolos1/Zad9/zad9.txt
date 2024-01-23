@@ -1,0 +1,1 @@
+im.point(lambda i: i * 0.5 + 100)
