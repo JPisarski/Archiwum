@@ -1,0 +1,293 @@
+LAB 01
+
+Zadanie 1
+1.Create table postac(id_postaci int primary key auto_increment,nazwa varchar(40),rodzaj enum('wiking','ptak','kobieta'),data_ur date,wiek int unsigned);
+2.Insert into postac values(default,'Bjorn','wiking','1787-09-03',45),
+(default,'Tesciowa','kobieta','1747-09-03',80),
+(default,'Drozd','ptak','1797-09-03',12);
+3)Update postac set wiek='88' where nazwa='Tesciowa';
+
+Zadanie 2
+1.Create table walizka(id_walizki int auto_increment primary key,pojemnosc int unsigned,kolor enum('czerwony','teczowy','zolty','rozowy'), id_wlasciciela int);
+Alter table walizka add foreign key (id_wlasciciela) references postac(id_postaci);
+2.Alter table walizka alter kolor set default'rozowy';
+3.Insert into walizka values(default,30,'czerwony',1),
+(default,'40','rozowy',2);
+
+Zadanie 3
+1.Create table izba(adres_budynku varchar(40),nazwa_izby varchar(40),metraz int unsigned,wlasciciel int);
+alter table izba add primary key(adres_budynku,nazwa_izby);
+alter table izba add foreign key(wlasciciel) references postac(id_postaci) on delete set null;
+2.alter table izba add column kolor_izby varchar(40) after metraz;
+alter table izba alter kolor_izby set default 'czarny';
+3.Insert into izba values('Dybowskiego 13','spizarnia','100',default,1);
+
+Zadanie 4
+1.create table przetwory(id_przetowru int primary key,rok_produkcji int default'1654',id_wykonawcy int ,zawartosc varchar(40),dodatek varchar(40) default 'papryczka chilli', id_konsumenta int, foreign key (id_wykonawcy) references postac(id_postaci),foreign key (id_konsumenta) references postac(id_postaci));
+2.Insert into przetwory values(1,default,1,'mieso woda warzywa jezynka',default,1);
+
+Zadanie 5
+1.INSERT INTO postac VALUES(default,'Odyn','wiking','1769-06-06',40),
+(default,'Thor','wiking','1770-08-16',50),
+(default,'Loki','wiking','1771-01-18',49),
+(default,'Grzmot','wiking','1779-02-26',43),
+(default,'Piorun','wiking','1776-07-16',48);
+2.Create table statek(nazwa_statku varchar(40) primary key,rodzaj_statku enum('major','orbit'),data_wodowania Date,max_ladownosc int unsigned);\
+3.Insert into statek values('pomarancza','major','1833-03-09',100),
+('cytryna','orbit','1833-03-09',200);
+4.Alter table postac add column funkcja varchar(50) after wiek;
+5.Update postac set funkcja='kapitan' where id_postaci=1;
+6.Alter table postac add column statek varchar(40) after funkcja;
+Alter table postac add foreign key (statek) references statek(nazwa_statku);
+7.Update postac set statek='pomarancza' where rodzaj='wiking' or rodzaj='ptak';
+Update postac set statek="cytryna" where id_postaci=4 or id_postaci=5 or id_postaci=6 or id_postaci=7 or id_postaci=8;
+8.Delete from izba spizarnia;
+9.Drop table izba;
+
+LAB 02
+
+Zadanie 1
+a)Delete from postac where nazwa!='Bjorn' and rodzaj='wiking' order by data_ur ASC LIMIT 2;
+b)alter table walizka drop foreign key walizka_ibfk_1;
+ alter table przetwory drop foreign key przetwory_ibfk_1;
+ alter table przetwory drop foreign key przetwory_ibfk_2;
+ alter table statek drop foreign key statek_ibfk_1;
+ alter table postac modify id_postaci int ;
+ alter table postac drop primary key;
+ 
+ Zadanie 2
+ a)Alter table postac add column pesel varchar(11);
+ Update postac set pesel='11111111111' where id_postaci=1;
+ Update postac set pesel='11111111112' where id_postaci=2;
+ Update postac set pesel='11111111113' where id_postaci=3;
+ Update postac set pesel='11111111114' where id_postaci=6;
+ Update postac set pesel='11111111115' where id_postaci=7;
+ Update postac set pesel='11111111116' where id_postaci=8;
+ alter table postac modify pesel bigint(11) primary key;
+b)alter table postac modify rodzaj enum('ptak','wiking','kobieta','syrena') default null;
+c)Insert into postac values(9,'Gertruda Nieszczera','syrena','1795-03-28',25,default,null,11111111117);
+
+Zadanie 3
+a)Update postac set statek='pomarancza' where nazwa like '%a%'; 
+b)Update statek set max_ladownosc=max_ladownosc*0.7 where data_wodowania between 1901-01-01 and 2000-12-31;
+c)alter table postac add check (wiek<=1000);
+
+Zadanie 4
+a)Insert into postac values(10,'Loko',null,'1810-01-02',5,default,null,11111111118);
+b)create table marynarz like postac;
+insert into marynarz select * from postac where statek is not null;
+c)ALTER TABLE marynarz ADD FOREIGN KEY(statek) REFERENCES statek(nazwa_statku);
+
+Zadanie 5
+a)UPDATE postac SET statek=default;
+DELETE FROM marynarz;
+b)DELETE FROM postac WHERE nazwa="Grzmot";
+c)DELETE FROM statek;
+d)ALTER TABLE marynarz DROP FOREIGN KEY marynarz_ibfk_1;
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+DROP TABLE statek;
+e)CREATE TABLE zwierz (id_zwierza INT AUTO_INCREMENT PRIMARY KEY, nazwa_zwierza VARCHAR(30), wiek INT UNSIGNED);
+f)INSERT INTO zwierz VALUES(default, "Drozd",12),(default, "Loko", 5);
+
+LAB 03
+
+Zadanie 1
+1. Create table kreatura as select * from wikingowie.kreatura;
+Create table zasob as select * from wikingowie.zasob;
+Create table ekwipunek as select * from wikingowie.ekwipunek;
+2.Select * From zasob;
+3.Select * from zasob where rodzaj='jedzenie';
+4.Select idZasobu,ilosc from ekwipunek where idKreatury in (1,3,5);
+
+Zadanie 2
+1.Select * from kreatura where rodzaj<>'wiedzma' and udzwig>=50;
+2.Select * from zasob where waga between 2 and 5;
+3.Select * from kreatura where nazwa like '%or%' and udzwig between 30 and 70;
+
+Zadanie 3
+1.Select * from zasob where Month(dataPozyskania) between 7 and 8;
+2.Select * from zasob where rodzaj is not null order by waga ASC;
+3.Select * from kreatura order by year(dataUr) DESC LIMIT 5;
+
+Zadanie 4
+1.Select distinct rodzaj from zasob;
+2.SELECT GROUP_CONCAT(nazwa," - ",rodzaj) FROM kreatura WHERE rodzaj LIKE 'wi%' GROUP BY nazwa;
+Select concat(nazwa,'-',rodzaj) from kreatura where rodzaj LIKE 'wi%';
+3.Select ilosc*waga as 'waga calkowita' from zasob where year(dataPozyskania) between 2000 and 2007;
+
+Zadanie 5
+1.Select 0.3*waga as 'odpad' from zasob where rodzaj='jedzenie';
+Select 0.7*waga as 'masa netto' from zasob where rodzaj='jedzenie';
+2.Select * from zasob where rodzaj is null;
+3.Select distinct rodzaj,nazwa from zasob where nazwa like 'Ba%' or nazwa like '%os' order by nazwa asc;
+
+LAB 04
+Zadanie 1
+1.Select avg(waga) as 'Srednia waga wikingow' from kreatura where rodzaj='wiking';
+2.Select avg(waga),count(idKreatury),rodzaj from kreatura group by rodzaj;
+3.Select avg(2021-year(dataUr)),rodzaj from kreatura group by rodzaj;
+
+Zadanie 2
+1.Select rodzaj,sum(waga) from zasob group by rodzaj;
+2.Select nazwa,avg(waga) from zasob where ilosc>=4 group by nazwa having sum(waga)>10; 
+3.Select count(nazwa),rodzaj from zasob group by rodzaj having count(nazwa)>1;
+
+Zadanie 3
+1.Select kreatura.nazwa, ekwipunek.idZasobu, ekwipunek.ilosc from kreatura,ekwipunek where kreatura.idKreatury=ekwipunek.idKreatury;
+2.Select kreatura.nazwa, zasob.nazwa, ekwipunek.ilosc from kreatura join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury join zasob on ekwipunek.idZasobu=zasob.idZasobu;
+3.Select kreatura.nazwa, kreatura.idKreatury, ekwipunek.idZasobu from kreatura left join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury where ekwipunek.idZasobu is null;
+
+Zadanie 4
+1.Select kreatura.nazwa, zasob.nazwa,ekwipunek.idZasobu from kreatura natural join ekwipunek join zasob on ekwipunek.idZasobu=zasob.idZasobu;
+2.SELECT kreatura.nazwa FROM kreatura NATURAL JOIN ekwipunek JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE zasob.rodzaj="jedzenie" ORDER BY kreatura.dataUR DESC LIMIT 5;
+3.SELECT CONCAT(t1.nazwa, "-", t2.nazwa) FROM kreatura t1, kreatura t2 WHERE t1.idKreatury - t2.idKreatury=5;
+
+Zadanie 5
+1.SELECT kreatura.rodzaj, AVG(ekwipunek.ilosc*zasob.waga) FROM kreatura NATURAL JOIN ekwipunek JOIN zasob ON ekwipunek.idZasobu=zasob.idZasobu WHERE kreatura.rodzaj NOT IN ("malpa","waz")  GROUP BY kreatura.rodzaj HAVING SUM(ekwipunek.ilosc)<30;
+2.SELECT  t.rodzaj, t.nazwa, t.dataUr FROM kreatura t,(SELECT  min(dataUr) min , max(dataUr) max FROM kreatura GROUP BY rodzaj) k WHERE k.min = t.dataUr OR k.max=t.dataUr;
+
+
+LAB 05
+
+Zadanie 1
+1. Create table pietrzakm.kreatura select * from wikingowie.kreatura ;
+Create table pietrzakm.uczestnicy select * from wikingowie.uczestnicy ;
+Create table pietrzakm.etapy_wyprawy select * from wikingowie.etapy_wyprawy;
+Create table pietrzakm.sektor select * from wikingowie.sektor;
+Create table pietrzakm.wyprawa select * from wikingowie.wyprawa;
+2.Select idkreatury,nazwa from kreatura left join uczestnicy on kreatura.idKreatury=uczestnicy.id_uczestnika where uczestnicy.id_uczestnika is null;
+3.Select wyprawa.nazwa, sum(ekwipunek.ilosc) from wyprawa inner join uczestnicy on wyprawa.id_wyprawy=uczestnicy.id_wyprawy inner join ekwipunek on ekwipunek.idKreatury=uczestnicy.id_uczestnika group by wyprawa.nazwa;
+
+Zadanie 2
+1.Select wyprawa.nazwa, count(uczestnicy.id_uczestnika), GROUP_concat(kreatura.nazwa) from wyprawa inner join uczestnicy on wyprawa.id_wyprawy=uczestnicy.id_wyprawy inner join kreatura on uczestnicy.id_uczestnika=kreatura.idKreatury group by wyprawa.nazwa;
+2.Select etapy_wyprawy.idEtapu, etapy_wyprawy.sektor from etapy_wyprawy inner join wyprawa on wyprawa.id_wyprawy= etapy_wyprawy.idWyprawy order by date(wyprawa.data_rozpoczecia), DESC;
+
+Zadanie 3
+1.
+2. SELECT  kreatura.nazwa, IF (uczestnicy.id_uczestnika>0,"bral udzial w wyprawie","nie bral udzialu w wyprawie"), 
+IFNULL(wyprawa.nazwa,"") FROM kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury=uczestnicy.id_uczestnika 
+LEFT JOIN wyprawa ON uczestnicy.id_wyprawy=wyprawa.id_wyprawy;
+
+Zadanie 4
+
+1.Select w.nazwa,sum(lenght(ew.dziennik)) from wyprawa w
+inner join etapy_wyprawy ew on w.id_wyprawy =ew.idwyprawy
+group by w.nazwa having sum(lenght(ew.dziennik))<400;
+
+2.select u.id_wyprawy, sum(z.waga*e.ilosc)/count(distinct u.id_uczestnika) from uczestnicy u
+left join ekwipunek e on e.idkreatury = u.id_uczestnika
+left join zasob z on z.idzasobu = e.idzasobu
+group by u.id_wyprawy;
+
+Zadnie 5
+select k.nazwa, day(curdate()) - day(k.dataUr) - (day(curdate() - day(w.data_rozpoczecia)))
+from uczestnicy u
+inner join uczestnicy u on k.idkreatury = u.id_uczestnika
+inner join wyprawa w on w.id_wyprawy = u.id_wyprawy
+inner join etapy_wyprawy ew on ew.idWyprawy = w.id_wyprawy
+inner join sektor s on s.id_sektora = ew.sektor
+where id_sektora = 7
+group by k.nazwa;
+
+Zti_Bazy 2 część 1
+
+Zadanie 1
+Select nazwisko from pracownik order by nazwisko asc;
+Zadanie 2
+Select imie,nazwisko,pensja from pracownik where year(data_urodzenia)>1979;
+Zadanie 3
+Select id_pracownika,imie,nazwisko,pensja,data_urodzenia,data_zatrudnienia,dzial from pracownik where pensja between 3500 and 5000;
+Zadanie 4
+Select towar from stan_magazynowy where ilosc>10;
+Zadanie 5
+Select nazwa_towaru from towar where nazwa_towaru like "A%" or nazwa_towaru like "B%" or nazwa_towaru like "C%";
+Zadanie 6
+Select id_klienta from klient where czy_firma=0;
+Zadanie 7
+Select id_zamowienia from zamowienie order by data_zamowienia desc limit 10;
+Zadanie 8
+Select id_pracownika from pracownik order by pensja asc limit 5;
+Zadanie 9
+Select id_towaru from towar where nazwa_towaru not like "%a%" order by cena_zakupu desc limit 10 ;
+Zadanie 10
+Select t.nazwa_towaru from towar t inner join stan_magazynowy sm on t.id_towaru=sm.towar where jm=3 order by nazwa_towaru asc,cena_zakupu desc;
+Zadanie 11
+Create table pietrzakm.towary_powyzej_100 select * from towar where cena_zakupu>=100;
+Zadanie 12
+Create table pietrzakm.pracownik_50_plus like pracownik;
+Insert into pietrzakm.pracownik_50_plus select * from pracownik where 2021-year(data_urodzenia)>=50;
+
+Zti_bazy 2 cześć 2
+
+Zadanie 1
+Select p.imie,p.nazwisko,d.nazwa from pracownik p
+inner join dzial d on p.dzial=id_dzialu ; 
+
+Zadanie 2
+Select t.nazwa_towaru,k.nazwa_kategori,sum(pz.ilosc) from pozycja_zamowienia pz
+inner join towar t on pz.towar=t.id_towaru
+inner join kategoria k on t.kategoria=k.id_kategori group by id_towaru order by sum(pz.ilosc) desc;
+
+Zadanie 3 
+Select z.id_zamowienia,sz.nazwa_statusu_zamowienia from zamowienie z 
+inner join status_zamowienia sz on z.status_zamowienia=sz.id_statusu_zamowienia where sz.nazwa_statusu_zamowienia="anulowane" ;
+
+Zadanie 4
+Select k.id_klienta,ak.miejscowosc,ta.nazwa from typ_adresu ta
+inner join adres_klienta ak on ta.id_typu=ak.typ_adresu
+inner join klient k on ak.klient=k.id_klienta where ak.miejscowosc="Olsztyn" and ta.nazwa="podstawowy";
+
+Zadanie 5
+Select jm.nazwa from jednostka_miary jm
+left join stan_magazynowy sm on jm.id_jednostki=sm.jm where sm.jm is null;
+
+Zadanie 6
+Select z.numer_zamowienia,t.nazwa_towaru,pz.ilosc,pz.cena from  zamowienie z
+inner join pozycja_zamowienia pz on pz.zamowienie=z.id_zamowienia
+inner join towar t on pz.towar=t.id_towaru where year(z.data_zamowienia)="2018";
+
+Zadanie 7
+create table towary_full_info as select t.nazwa_towaru, t.cena_zakupu, k.nazwa_kategori, sm.ilosc, jmi.nazwa from __firma_zti.kategoria k
+inner join __firma_zti.towar t on k.id_kategori=t.kategoria 
+join __firma_zti.stan_magazynowy sm on t.id_towaru=sm.towar 
+join __firma_zti.jednostka_miary jmi on sm.jm=jmi.id_jednostki;
+
+Zadanie 8
+Select pz.id_pozycji,z.data_zamowienia from pozycja_zamowienia pz
+inner join zamowienie z on pz.zamowienie=z.id_zamowienia order by z.data_zamowienia desc limit 5;
+
+Zadanie 9
+Select z.id_zamowienia,sz.nazwa_statusu_zamowienia from zamowienie z
+inner join status_zamowienia sz on z.status_zamowienia=sz.id_statusu_zamowienia where sz.nazwa_statusu_zamowienia NOT LIKE "zrealizowane";
+
+Zadanie 10 
+Select id_adresu,kod from adres_klienta where kod not like "__-___";
+
+Zti_bazy 3 część 2
+
+Zadanie 1
+Select d.nazwa, min(p.pensja), max(p.pensja),avg(p.pensja) from dzial d
+inner join pracownik p on p.dzial=d.id_dzialu group by d.id_dzialu;
+
+Zadanie 2
+Select k.pelna_nazwa, sum(pz.ilosc*pz.cena) from klient k
+inner join zamowienie z on k.id_klienta=z.klient
+inner join pozycja_zamowienia pz on z.id_zamowienia=pz.zamowienie group by id_pozycji order by sum(pz.ilosc*pz.cena) DESC LIMIT 10 ;
+
+Zadanie 3
+Select year(z.data_zamowienia),sum(pz.ilosc*pz.cena) from zamowienie z
+inner join pozycja_zamowienia pz on z.id_zamowienia=pz.zamowienie group by year(z.data_zamowienia) order by sum(pz.ilosc*pz.cena) desc;
+
+Zadanie 4
+Select sum(pz.ilosc*pz.cena) from pozycja_zamowienia pz
+inner join zamowienie z on z.id_zamowienia=pz.zamowienie
+inner join status_zamowienia st on st.id_statusu_zamowienia=z.status_zamowienia where st.nazwa_statusu_zamowienia="anulowane";
+
+Zadanie 5
+Select ak.miejscowosc,count(distinct(pz.zamowienie)), sum(pz.ilosc*pz.cena) from pozycja_zamowienia pz
+inner join zamowienie z on z.id_zamowienia=pz.zamowienie
+inner join klient k on z.klient=k.id_klienta 
+inner join adres_klienta ak on k.id_klienta=ak.klient
+inner join typ_adresu ta on  ak.typ_adresu=ta.id_typu where ta.nazwa="podstawowy" group by ak.miejscowosc order by count(distinct(pz.zamowienie)) desc ;
+
+
