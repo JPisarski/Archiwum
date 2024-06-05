@@ -50,14 +50,3 @@ cat /proc/devices
 6.
 
 cat /proc/meminfo
-
-Reszta nie wiem
-
-
-
-
-
-
-
-
-
