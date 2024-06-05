@@ -1,0 +1,138 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define BIT_VALUE(value, noBit) (value >> noBit) & 1
+
+unsigned int counter = 0;
+void delay()
+{
+    int a, b;
+    for(a=0; a<=1474836; a++)
+    {
+        for(b=0; b<=512; b++)
+        {
+
+        }
+    }
+}
+
+int main(void)
+{
+    while(1)
+    {
+        printf("\r");
+        for(int i=7; i>=0; i--)
+        {
+            printf("%d", BIT_VALUE(counter, i));
+        }
+        counter++;
+        delay();
+    }
+}
+
+------------------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define BIT_VALUE(value, noBit) (value >> noBit) & 1
+
+unsigned int counter = 0;
+void delay()
+{
+    int a, b;
+    for(a=0; a<=5575550; a++)
+    {
+        for(b=0; b<=512; b++)
+        {
+
+
+        }
+    }
+}
+
+int IntToGray(unsigned char input)
+{
+    return (input >> 1) ^ input;
+}
+
+int main(void)
+{
+    while(1)
+    {
+        printf("\r");
+        for(int i=7; i>=0; i--)
+        {
+            printf("%d", BIT_VALUE(counter, i));
+        }
+        printf("   ");
+        for(int i=7; i>=0; i--)
+        {
+            printf("%d", BIT_VALUE(IntToGray(counter), i));
+        }
+        counter++;
+        delay();
+    }
+}
+
+--------------------------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define BIT_VALUE(value, noBit) (value >> noBit) & 1
+
+unsigned int counter = 0;
+void delay()
+{
+    int a, b;
+    for(a=0; a<=5575550; a++)
+    {
+        for(b=0; b<=512; b++)
+        {
+
+
+        }
+    }
+}
+
+int MLS1(int seed)
+{
+    int x0 = BIT_VALUE(seed, 0);
+    int x1 = BIT_VALUE(seed, 1);
+    int x4 = BIT_VALUE(seed, 4);
+    int x5 = BIT_VALUE(seed, 5);
+    int w = x0 ^ x1 ^ x4 ^ x5;
+    int wynik = (seed >> 1) + (w << 5);
+    return wynik;
+}
+
+int MLS2(int seed)
+{
+    int x0 = BIT_VALUE(seed, 0);
+    int x3 = BIT_VALUE(seed, 3);
+    int x4 = BIT_VALUE(seed, 4);
+    int x5 = BIT_VALUE(seed, 5);
+    int w = x0 ^ x3 ^ x4 ^ x5;
+    int wynik = (seed >> 1) + (w << 5);
+    return wynik;
+}
+
+int S_Golda(int seed)
+{
+    return MLS1(seed) ^ MLS2(seed);
+
+}
+
+int main(void)
+{
+    int i = 1;
+    while(1)
+    {
+        printf("%d \n", MLS1(i));
+        i = MLS1(i);
+        delay();
+    }
+
+
+}
