@@ -1,0 +1,52 @@
+1.
+
+ps -A | wc -l
+
+2.
+
+ps -u root -f
+
+3.
+
+ps -ejH
+ps axjf
+
+4.
+
+ps
+
+1.
+
+top T
+
+2.
+
+top M
+
+3.
+
+ps
+
+1.
+
+cat /proc/version
+
+2.
+
+ls -l /proc/kcore
+
+3.
+
+cat /proc/cpuinfo
+
+4.
+
+cat /proc/meminfo
+
+5.  
+
+cat /proc/devices
+
+6.
+
+cat /proc/meminfo
